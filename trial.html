@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lab Task Manager</title>
+<link rel="stylesheet" href="style.css">
+<!-- <style>
+body{
+font-family: Arial;
+margin:40px;
+background:#f4f4f4;
+}
+
+h1{
+color:#333;
+}
+
+input,button{
+padding:8px;
+margin:5px;
+}
+
+table{
+border-collapse:collapse;
+width:80%;
+margin-top:20px;
+background:white;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+text-align:center;
+}
+
+button{
+cursor:pointer;
+}
+
+.delete{
+background:red;
+color:white;
+}
+
+.update{
+background:orange;
+color:white;
+} -->
+</style>
+</head>
+
+<body>
+
+<h1>Weekly Lab Task Assignment</h1>
+
+<input type="text" id="studentId" placeholder="Student ID">
+<input type="text" id="studentName" placeholder="Student Name">
+<input type="text" id="task" placeholder="Task Title">
+<input type="number" id="week" placeholder="Week">
+
+<button onclick="addTask()">Add Task</button>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Task</th>
+<th>Week</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody id="taskTable"></tbody>
+</table>
+
+<script>
+
+let tasks=[];
+
+function displayTasks(){
+
+let table=document.getElementById("taskTable");
+table.innerHTML="";
+
+tasks.forEach((task,index)=>{
+
+table.innerHTML+=`
+<tr>
+<td>${task.id}</td>
+<td>${task.name}</td>
+<td>${task.task}</td>
+<td>${task.week}</td>
+
+<td>
+<button class="update" onclick="editTask(${index})">Edit</button>
+<button class="delete" onclick="deleteTask(${index})">Delete</button>
+</td>
+</tr>
+`;
+
+});
+
+}
+
+function addTask(){
+
+let id=document.getElementById("studentId").value;
+let name=document.getElementById("studentName").value;
+let task=document.getElementById("task").value;
+let week=document.getElementById("week").value;
+
+if(id==""||name==""||task==""||week==""){
+alert("Please fill all fields");
+return;
+}
+
+tasks.push({id,name,task,week});
+
+displayTasks();
+clearFields();
+
+}
+
+function editTask(index){
+
+let newTask=prompt("Enter new task");
+
+if(newTask!=null){
+tasks[index].task=newTask;
+displayTasks();
+}
+
+}
+
+function deleteTask(index){
+
+tasks.splice(index,1);
+displayTasks();
+
+}
+
+function clearFields(){
+
+document.getElementById("studentId").value="";
+document.getElementById("studentName").value="";
+document.getElementById("task").value="";
+document.getElementById("week").value="";
+
+}
+
+</script>
+
+</body>
+</html>
